@@ -11,8 +11,12 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     git \
+    tmux \
+    x11-utils \
+    xdotool \
+    firefox \
+    net-tools \
     && rm -rf /var/lib/apt/lists/*
-
 # Set the working directory inside the container
 WORKDIR /app
 

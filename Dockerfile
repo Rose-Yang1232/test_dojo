@@ -24,7 +24,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Python dependencies if there’s a requirements.txt (optional)
-RUN pip3 install -r requirements.txt
+# RUN pip3 install -r requirements.txt
 
 # Specify the command to run your application (adjust as necessary)
 CMD ["bash"]

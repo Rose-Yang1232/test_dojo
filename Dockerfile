@@ -1,5 +1,5 @@
 # Use the official Ubuntu as the base image
-FROM --platform=linux/arm64 alpine:3.18
+FROM ubuntu:24.04
 
 # Set the environment variable to avoid prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive

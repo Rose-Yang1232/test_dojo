@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     tmux \
     x11-utils \
     xdotool \
+    xinput \
     firefox \
     net-tools \
     && rm -rf /var/lib/apt/lists/*

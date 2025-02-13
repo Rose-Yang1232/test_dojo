@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     git \
     tmux \
     x11-utils \
-    xdotool \
+    # xdotool \
     xinput \
     firefox \
     net-tools \

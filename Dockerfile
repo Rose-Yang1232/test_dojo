@@ -4,7 +4,7 @@ FROM ubuntu:24.04
 # Set the environment variable to avoid prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies (adjust these as needed for your application)
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
@@ -17,14 +17,27 @@ RUN apt-get update && apt-get install -y \
     firefox \
     net-tools \
     && rm -rf /var/lib/apt/lists/*
-# Set the working directory inside the container
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the application files from your local machine to the container
+# Copy all project files
 COPY . /app
 
-# Install Python dependencies if there’s a requirements.txt (optional)
-# RUN pip3 install -r requirements.txt
+# Copy and run keypress logger
+COPY keypress_logger.sh /app/keypress_logger.sh
+RUN chmod +x /app/keypress_logger.sh
 
-# Specify the command to run your application (adjust as necessary)
+# Ensure logger starts when a participant launches the terminal
+RUN echo "/app/keypress_logger.sh &" >> /root/.bashrc
+
+# Default to bash so participants can interact with the challenge
 CMD ["bash"]
+
+
+# keystroke: xevents, hook windows, no network in docker; use jscode 
+# activity in the terminal; with in the container, hook the keystroke (docker tool)
+# in container will be better, faster
+# pop up window fixed at a location (initial task)
+# use an api instead of command 
+# monitor: ensure the window is fixed 

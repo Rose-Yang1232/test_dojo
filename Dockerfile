@@ -13,10 +13,10 @@ RUN apt-get update && apt-get install -y \
     git \
     tmux \
     x11-utils \
-    # xdotool \
     xinput \
     firefox \
     net-tools \
+    wmctrl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
@@ -26,11 +26,16 @@ WORKDIR /app
 COPY . /app
 
 # Copy and run keypress logger
-COPY keypress_logger.sh /app/keypress_logger.sh
-RUN chmod +x /app/keypress_logger.sh
+# COPY keypress_logger.sh /app/keypress_logger.sh
+# RUN chmod +x /app/keypress_logger.sh
 
 # Ensure logger starts when a participant launches the terminal
-RUN echo "/app/keypress_logger.sh &" >> /root/.bashrc
+# RUN echo "/app/keypress_logger.sh &" >> /root/.bashrc
+
+# Copy the setup script to enforce the desktop layout
+COPY setup_layout.sh /etc/profile.d/setup_layout.sh
+RUN chmod +x /etc/profile.d/setup_layout.sh
+
 
 # Default to bash so participants can interact with the challenge
 CMD ["bash"]

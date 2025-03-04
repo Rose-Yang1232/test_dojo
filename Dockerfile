@@ -25,25 +25,12 @@ WORKDIR /app
 # Copy all project files
 COPY . /app
 
-# Copy and run keypress logger
-# COPY keypress_logger.sh /app/keypress_logger.sh
-# RUN chmod +x /app/keypress_logger.sh
+# # Copy the setup script to enforce the desktop layout
+# COPY setup_layout.sh /etc/profile.d/setup_layout.sh
+# RUN chmod +x /etc/profile.d/setup_layout.sh
 
-# Ensure logger starts when a participant launches the terminal
-# RUN echo "/app/keypress_logger.sh &" >> /root/.bashrc
-
-# Copy the setup script to enforce the desktop layout
-COPY setup_layout.sh /etc/profile.d/setup_layout.sh
-RUN chmod +x /etc/profile.d/setup_layout.sh
-
+# # Ensure the script runs when the GUI desktop starts
+# RUN echo "bash /etc/profile.d/setup_layout.sh &" >> /root/.xsessionrc
 
 # Default to bash so participants can interact with the challenge
 CMD ["bash"]
-
-
-# keystroke: xevents, hook windows, no network in docker; use jscode 
-# activity in the terminal; with in the container, hook the keystroke (docker tool)
-# in container will be better, faster
-# pop up window fixed at a location (initial task)
-# use an api instead of command 
-# monitor: ensure the window is fixed 

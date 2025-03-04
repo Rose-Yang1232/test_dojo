@@ -1,10 +1,9 @@
-# Use the official Ubuntu as the base image
-FROM ubuntu:24.04
+FROM ubuntu:20.04
 
-# Set the environment variable to avoid prompts during package installation
+# Set environment variables to disable interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
+# Update and install required packages
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
@@ -13,23 +12,18 @@ RUN apt-get update && apt-get install -y \
     git \
     tmux \
     x11-utils \
+    wmctrl \
     firefox \
     net-tools \
-    wmctrl \
+    openbox \
+    xfce4-terminal \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy all project files
+# Copy application files from local machine to container
 COPY . /app
 
-# # Copy the setup script to enforce the desktop layout
-# COPY setup_layout.sh /etc/profile.d/setup_layout.sh
-# RUN chmod +x /etc/profile.d/setup_layout.sh
-
-# # Ensure the script runs when the GUI desktop starts
-# RUN echo "bash /etc/profile.d/setup_layout.sh &" >> /root/.xsessionrc
-
-# Default to bash so participants can interact with the challenge
+# Default command: open a shell when container starts
 CMD ["bash"]

@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     git \
     tmux \
     x11-utils \
-    xinput \
     firefox \
     net-tools \
     wmctrl \

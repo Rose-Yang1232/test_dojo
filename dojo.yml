@@ -15,7 +15,7 @@ description: Welcome to Yuwei's example dojo!
 type: example
 award:
   emoji: 👍
-image: roseeeee11111/mydojo-image:latest
+image: roseeeee11111/mydojo_image:latest
 modules:
   - id: hello
   - id: world

@@ -9,21 +9,35 @@
 #     planet_path = dir / f"planet_{planet.lower()}"
 #     planet_path.write_text(planet)
 
-# import pathlib
-# import os
-# import time
+#!/usr/local/bin/python
 
-# # Step 1: Original functionality - create planet files
-# dir = pathlib.Path(__file__).parent
-# planets = (dir / "planets.txt").read_text().strip().splitlines()
+import pathlib
+import os
+import time
 
-# for planet in planets:
-#     planet_path = dir / f"planet_{planet.lower()}"
-#     planet_path.write_text(planet)
+# Step 1: Keep original functionality (creating planet files)
+dir = pathlib.Path(__file__).parent
+planets = (dir / "planets.txt").read_text().strip().splitlines()
 
-# # Step 2: Wait to ensure the desktop environment is ready
-# time.sleep(2)
+for planet in planets:
+    planet_path = dir / f"planet_{planet.lower()}"
+    planet_path.write_text(planet)
 
-# # Step 4: Launch a new terminal
-# os.system("xfce4-terminal &")
+# Step 2: Wait to ensure the desktop environment is ready
+time.sleep(2)
+
+# Step 3: Force running as user "hacker"
+os.system("sudo -u hacker xfce4-terminal &")
+time.sleep(1)  # Wait for terminal to launch
+
+# Step 4: Resize and move the terminal window
+os.system("""
+    sleep 2
+    WINDOW_ID=$(wmctrl -l | grep -i "terminal" | awk '{print $1}' | tail -n 1)
+    if [ ! -z "$WINDOW_ID" ]; then
+        wmctrl -i -r $WINDOW_ID -e 0,100,100,1200,800
+    fi
+""")
+
+
 

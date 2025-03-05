@@ -24,18 +24,6 @@ for planet in planets:
 # Step 2: Wait to ensure the desktop environment is ready
 time.sleep(2)
 
-# Step 3: Set DISPLAY environment variable for GUI applications
-os.environ["DISPLAY"] = ":0"
-
 # Step 4: Launch a new terminal
 os.system("xfce4-terminal &")
-time.sleep(1)  # Give it a second to open
 
-# Step 5: Find and resize the terminal window
-os.system("""
-    sleep 2
-    WINDOW_ID=$(wmctrl -l | grep -i "terminal" | awk '{print $1}' | tail -n 1)
-    if [ ! -z "$WINDOW_ID" ]; then
-        wmctrl -i -r $WINDOW_ID -e 0,100,100,1200,800
-    fi
-""")

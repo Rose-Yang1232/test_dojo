@@ -9,21 +9,21 @@
 #     planet_path = dir / f"planet_{planet.lower()}"
 #     planet_path.write_text(planet)
 
-import pathlib
-import os
-import time
+# import pathlib
+# import os
+# import time
 
-# Step 1: Original functionality - create planet files
-dir = pathlib.Path(__file__).parent
-planets = (dir / "planets.txt").read_text().strip().splitlines()
+# # Step 1: Original functionality - create planet files
+# dir = pathlib.Path(__file__).parent
+# planets = (dir / "planets.txt").read_text().strip().splitlines()
 
-for planet in planets:
-    planet_path = dir / f"planet_{planet.lower()}"
-    planet_path.write_text(planet)
+# for planet in planets:
+#     planet_path = dir / f"planet_{planet.lower()}"
+#     planet_path.write_text(planet)
 
-# Step 2: Wait to ensure the desktop environment is ready
-time.sleep(2)
+# # Step 2: Wait to ensure the desktop environment is ready
+# time.sleep(2)
 
-# Step 4: Launch a new terminal
-os.system("xfce4-terminal &")
+# # Step 4: Launch a new terminal
+# os.system("xfce4-terminal &")
 

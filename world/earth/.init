@@ -9,11 +9,16 @@
 #     planet_path = dir / f"planet_{planet.lower()}"
 #     planet_path.write_text(planet)
 
-#!/usr/local/bin/python
-
 import pathlib
 import os
 import time
+import subprocess
+
+log_file = "/challenge/init_log.txt"
+
+def log_message(message):
+    with open(log_file, "a") as log:
+        log.write(message + "\n")
 
 # Step 1: Keep original functionality (creating planet files)
 dir = pathlib.Path(__file__).parent
@@ -23,12 +28,28 @@ for planet in planets:
     planet_path = dir / f"planet_{planet.lower()}"
     planet_path.write_text(planet)
 
-# Step 2: Wait to ensure the desktop environment is ready
-time.sleep(2)
+log_message("Planet files created successfully.")
 
-# Step 3: Force running as user "hacker"
-os.system("sudo -u hacker xfce4-terminal &")
-time.sleep(1)  # Wait for terminal to launch
+# Step 2: Wait for XFCE Desktop to Start
+def wait_for_xfce():
+    log_message("Waiting for XFCE to start...")
+    while True:
+        try:
+            output = subprocess.check_output("pgrep xfwm4", shell=True).decode().strip()
+            if output:
+                log_message("XFCE is running! Proceeding with terminal launch.")
+                break
+        except subprocess.CalledProcessError:
+            pass  # Process not found, keep waiting
+        time.sleep(2)
+
+wait_for_xfce()
+
+# Step 3: Launch a new terminal
+os.system("xfce4-terminal &")
+log_message("Launched xfce4-terminal.")
+
+time.sleep(1)  # Give time for terminal to open
 
 # Step 4: Resize and move the terminal window
 os.system("""
@@ -38,6 +59,8 @@ os.system("""
         wmctrl -i -r $WINDOW_ID -e 0,100,100,1200,800
     fi
 """)
+log_message("Resized and repositioned terminal window.")
+
 
 
 

@@ -23,7 +23,7 @@ for planet in planets:
     planet_path.write_text(planet)
 
 # Step 2: Wait to ensure the desktop environment is ready
-time.sleep(10)
+time.sleep(60)
 
 # Step 3: Force running as user "hacker"
 os.system("xfce4-terminal &")

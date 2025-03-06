@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Function to wait for XFCE to be fully initialized
+wait_for_xfce() {
+    echo "Waiting for XFCE desktop environment to start..."
+    while true; do
+        if pgrep -x ".xfce4-session-" > /dev/null; then
+            echo "XFCE is running! Proceeding with terminal launch."
+            break
+        fi
+        sleep 2
+    done
+}
+
+# Wait for GUI before launching terminal
+wait_for_xfce
+
+# Launch terminal
+xfce4-terminal &
+
+# Wait and resize terminal
+sleep 2
+WINDOW_ID=$(wmctrl -l | grep -i "terminal" | awk '{print $1}' | tail -n 1)
+if [ ! -z "$WINDOW_ID" ]; then
+    wmctrl -i -r $WINDOW_ID -e 0,100,100,1200,800
+fi
